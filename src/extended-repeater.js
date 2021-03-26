@@ -1,58 +1,35 @@
 const CustomError = require("../extensions/custom-error");
 
 module.exports = function repeater(str, options) {
-  // let repeatTimes = options.repeatTimes;
-   
-  //   let addition =  String(options.addition);
-  //   let additionRepeatTimes = options.additionRepeatTimes;
-  //   let additionSeparator = options.additionSeparator;
-
-  //   let arrStr = [];
-  //   let additionArr = [];
-
+    if(typeof str != 'string') {
+      str = String(str);
+    }
+  
+    let result = [];
+    let addResult = [];
+  
+    if(!options.separator) {options.separator = "+";}
+  
+    if(options.hasOwnProperty("addition")) {
+      if(typeof options.addition != 'string') {
+        options.addition = String(options.addition);
+      }
+      if(!options.additionSeparator) {options.additionSeparator = "|";}
+      for(let j = 0; j < options.additionRepeatTimes - 1; j += 1) {
+        addResult.push(options.addition);
+        addResult.push(options.additionSeparator);
+      }
+      addResult.push(options.addition);
+      addResult.push(str);
+      str = addResult.reverse().join('');
+    }
+  
+  for(let i = 0; i < options.repeatTimes - 1; i += 1) {
+    result.push(str);
+    result.push(options.separator);
+  }
+  result.push(str);
     
-
-  //   str = String(str)
-  //  let separator = options.separator;
-    
-  //   if(separator === undefined) separator = '+'
-    
-  //   if(additionSeparator === undefined) additionSeparator = '|'
-
-  //   if(repeatTimes !== undefined){
-      
-     
-  //       if(additionRepeatTimes !== undefined){
-          
-  //         for(let i = 0; i <= additionRepeatTimes - 1; i++){
-              
-
-  //               additionArr.push(addition);
-  //               additionArr.push(additionSeparator);
-  //       }
-  //        additionArr.pop();
-  //        additionArr = additionArr.join('');
-        
-  //       } 
-          
-            
-
-  //           for(let j = 0; j <= repeatTimes-1; j++){
-
-  //               arrStr.push(str);
-  //               if(additionArr.length !== 0) arrStr.push(additionArr);
-  //               arrStr.push(separator);
-
-                
-  //           }
-  //           arrStr.pop();
-  //           arrStr = arrStr.join('');
-  //           return arrStr;
-  //   } else {
-  //     arrStr.push(str);
-  //     arrStr.push(addition);
-  //     arrStr = arrStr.join('');
-  //     return arrStr;
-  //   } 
+  return result.join('');
 };
   
